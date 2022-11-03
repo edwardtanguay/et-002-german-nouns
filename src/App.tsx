@@ -3,6 +3,7 @@ import './App.scss';
 import axios from 'axios';
 
 const nounsUrl = 'https://edwardtanguay.vercel.app/share/germanNouns.json';
+const localStorageVariableName = 'noun-game-state';
 
 interface INoun {
 	article: string;
@@ -17,6 +18,7 @@ function App() {
 
 	useEffect(() => {
 		(async () => {
+			const localStorageNouns = localStorage.getItem(localStorageVariableName);
 			const response = await axios.get(nounsUrl);
 			const rawNouns = response.data;
 			const _nouns: INoun[] = [];
@@ -31,9 +33,9 @@ function App() {
 			setNouns(_nouns);
 		})();
 	}, []);
-
+// code smell
 	const saveApplicationState = () => {
-		localStorage.setItem('noun-game-state', JSON.stringify(nouns));
+		localStorage.setItem(localStorageVariableName, JSON.stringify(nouns));
 		setNouns([...nouns]);
 	};
 
