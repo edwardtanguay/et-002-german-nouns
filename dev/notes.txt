@@ -10,5 +10,6 @@
 	- x if isLearned, then don't show: {!isLearned && ()}
 	- x show "You have learned nnnn of 124 nouns."
 
-- .. localStorage so that when user comes back to page, their progress is restored
-	- save state to localstorage everytime we change state
+- x localStorage so that when user comes back to page, their progress is restored
+	- x save state to localstorage everytime we change state
+	- x make reset button

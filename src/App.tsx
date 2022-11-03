@@ -18,22 +18,29 @@ function App() {
 
 	useEffect(() => {
 		(async () => {
-			const localStorageNouns = localStorage.getItem(localStorageVariableName);
-			const response = await axios.get(nounsUrl);
-			const rawNouns = response.data;
-			const _nouns: INoun[] = [];
-			rawNouns.forEach((rawNoun: any) => {
-				const _noun: INoun = {
-					...rawNoun,
-					isOpen: false,
-					isLearned: false,
-				};
-				_nouns.push(_noun);
-			});
+			let _nouns: INoun[] = [];
+			const localStorageNouns = localStorage.getItem(
+				localStorageVariableName
+			);
+			if (localStorageNouns !== null) {
+				_nouns = JSON.parse(localStorageNouns);
+			} else {
+				const response = await axios.get(nounsUrl);
+				const rawNouns = response.data;
+				_nouns = [];
+				rawNouns.forEach((rawNoun: any) => {
+					const _noun: INoun = {
+						...rawNoun,
+						isOpen: false,
+						isLearned: false,
+					};
+					_nouns.push(_noun);
+				});
+			}
 			setNouns(_nouns);
 		})();
 	}, []);
-// code smell
+	
 	const saveApplicationState = () => {
 		localStorage.setItem(localStorageVariableName, JSON.stringify(nouns));
 		setNouns([...nouns]);
@@ -55,11 +62,17 @@ function App() {
 			0
 		);
 	};
+
+	const handleResetButton = () => {
+		localStorage.removeItem(localStorageVariableName);
+		window.location.reload();
+	}
+
 	return (
 		<div className="App">
 			<h1>German Nouns ({getNumberLearned()} learned so far)</h1>
 			<h2>
-				You have learned {getNumberLearned()} of {nouns.length} nouns.
+				You have learned {getNumberLearned()} of {nouns.length} nouns. <button onClick={() => handleResetButton()}>Reset</button>
 			</h2>
 			<div className="nouns">
 				{nouns.map((noun) => {
