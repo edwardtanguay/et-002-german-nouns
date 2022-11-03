@@ -37,10 +37,15 @@ function App() {
 		setNouns([...nouns]);
 	};
 
+	const handleMarkAsLearned = (noun: INoun) => {
+		noun.isLearned = true;
+		setNouns([...nouns]);
+	};
+
 	return (
 		<div className="App">
 			<h1>German Nouns</h1>
-			<h2>There are {nouns.length} nouns.</h2>
+			<h2>You have learned {nouns.reduce((total, noun) => total + (noun.isLearned ? 1 : 0), 0)} of {nouns.length} nouns.</h2>
 			<div className="nouns">
 				{nouns.map((noun) => {
 					return (
@@ -63,7 +68,13 @@ function App() {
 											<div className="plural">
 												{noun.plural}
 											</div>
-											<button>Mark as learned</button>
+											<button
+												onClick={() =>
+													handleMarkAsLearned(noun)
+												}
+											>
+												Mark as learned
+											</button>
 										</div>
 									)}
 								</div>

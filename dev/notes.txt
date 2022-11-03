@@ -4,7 +4,10 @@
 	- x onClick
 	- x handleToggleFlashcard()
 - x create button "Mark as learned"
-	- .. add additional property to each object: isLearned
-	- onClick
-	- handleMarkAsLearnedClick
-	- if isLearned, then don't show: {!isLearned && ()}
+	- x add additional property to each object: isLearned
+	- x onClick
+	- x handleMarkAsLearnedClick
+	- x if isLearned, then don't show: {!isLearned && ()}
+	- x show "You have learned nnnn of 124 nouns."
+
+- .. localStorage so that when user comes back to page, their progress is restored
