@@ -32,20 +32,29 @@ function App() {
 		})();
 	}, []);
 
+	const saveToLocalStorage = () => {
+		localStorage.setItem('noun-game-state', JSON.stringify(nouns));
+	}
+
 	const handleToggleFlashcard = (noun: INoun) => {
 		noun.isOpen = !noun.isOpen;
 		setNouns([...nouns]);
+		saveToLocalStorage();
 	};
 
 	const handleMarkAsLearned = (noun: INoun) => {
 		noun.isLearned = true;
 		setNouns([...nouns]);
+		saveToLocalStorage();
 	};
 
+	const getNumberLearned = () => {
+		return nouns.reduce((total, noun) => total + (noun.isLearned ? 1 : 0), 0);
+	}
 	return (
 		<div className="App">
-			<h1>German Nouns</h1>
-			<h2>You have learned {nouns.reduce((total, noun) => total + (noun.isLearned ? 1 : 0), 0)} of {nouns.length} nouns.</h2>
+			<h1>German Nouns ({getNumberLearned()} learned so far)</h1>
+			<h2>You have learned {getNumberLearned()} of {nouns.length} nouns.</h2>
 			<div className="nouns">
 				{nouns.map((noun) => {
 					return (
