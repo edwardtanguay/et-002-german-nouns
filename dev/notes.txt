@@ -1,1 +1,10 @@
-- .. fetch nouns and display on page
+- x fetch nouns and display on page
+- x enable user to click and show answer of flashcard
+	- x add additional property to each object: isOpen
+	- x onClick
+	- x handleToggleFlashcard()
+- x create button "Mark as learned"
+	- .. add additional property to each object: isLearned
+	- onClick
+	- handleMarkAsLearnedClick
+	- if isLearned, then don't show: {!isLearned && ()}
